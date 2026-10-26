@@ -1,6 +1,81 @@
 
 <!DOCTYPE html>
 <html lang="ko">
+<style>
+/* 따뜻한 생일 페이지 장식 */
+body {
+  background:
+    radial-gradient(circle at 10% 10%, #fff7ef, transparent 35%),
+    linear-gradient(180deg, #f8eee7, #eee3d8);
+  overflow-x: hidden;
+}
+
+/* 제목에 우아한 효과 */
+h1 {
+  color: #59483f;
+  letter-spacing: 1px;
+  animation: fadeIn 1.5s ease;
+}
+
+/* 카드에 입체감 */
+.card, section {
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(100, 70, 50, 0.08);
+}
+
+/* 둥실둥실 떠오르는 하트 */
+.floating-heart {
+  position: fixed;
+  bottom: -40px;
+  color: #c68d85;
+  font-size: 22px;
+  pointer-events: none;
+  z-index: 10;
+  animation: floatUp 7s linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% { opacity: 0.8; }
+  100% {
+    transform: translateY(-110vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+<script>
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.textContent = ["♡", "♥", "✿", "✨"][
+    Math.floor(Math.random() * 4)
+  ];
+
+  heart.style.left = Math.random() * 95 + "vw";
+  heart.style.animationDuration =
+    (5 + Math.random() * 4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 9000);
+}, 900);
+</script>
+  
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
