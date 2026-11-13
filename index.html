@@ -209,130 +209,83 @@ footer { text-align:center; font-size:13px; padding:20px; }
       <div class="caption">사랑하는 엄마 · 幸福的時刻</div>
     </article>
 
+
+
     
-   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>엄마 생일 축하 카드</title>
+<title>엄마 생일 카드</title>
 
 <style>
 body {
-    background-color: #fff0f5;
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
     text-align: center;
-    padding: 30px 10px;
-}
-
-h1 {
-    color: #ff69a4;
-}
-
-p {
-    color: #d66b91;
-    font-size: 18px;
-}
-
-.card {
-    background: white;
-    max-width: 450px;
-    width: 90%;
-    margin: 30px auto;
-    padding: 25px 15px;
-    border-radius: 25px;
-    box-shadow: 0 5px 15px #f5b6cb;
-    box-sizing: border-box;
 }
 
 textarea {
-    width: 100%;
+    width: 300px;
     height: 120px;
-    padding: 12px;
-    border: 2px solid #ffb6c1;
-    border-radius: 15px;
+    padding: 10px;
     font-size: 16px;
-    box-sizing: border-box;
-    resize: vertical;
 }
 
 button {
-    background-color: #ff85a2;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 13px 25px;
-    font-size: 17px;
-    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-button:hover {
-    background-color: #ff5c8a;
 }
 
 #result {
     display: none;
-    background-color: #fff0f5;
-    color: #d94f82;
-    margin-top: 25px;
+    margin: 25px auto;
     padding: 20px;
-    border-radius: 18px;
-    font-size: 17px;
-    line-height: 1.8;
+    max-width: 450px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
     text-align: left;
-
+    font-size: 16px;
+    line-height: 1.8;
     writing-mode: horizontal-tb;
     white-space: pre-wrap;
-    word-break: normal;
     overflow-wrap: break-word;
     box-sizing: border-box;
-    width: 100%;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎂 엄마 생일 축하해요! 🎂</h1>
+<h2>💌 엄마에게 메시지 남기기</h2>
 
-<p>💗 세상에서 가장 사랑하는 엄마에게 💗</p>
+<textarea id="message"
+placeholder="엄마에게 하고 싶은 말을 적어주세요."></textarea>
 
-<div class="card">
+<br><br>
 
-    <h2>💌 엄마에게 편지 쓰기</h2>
+<button onclick="sendMessage()">
+메시지 남기기
+</button>
 
-    <textarea id="message"
-    placeholder="엄마에게 하고 싶은 말을 적어주세요💕"></textarea>
-
-    <br>
-
-    <button onclick="sendMessage()">
-        💗 메시지 남기기 💗
-    </button>
-
-    <div id="result"></div>
-
-</div>
-
-<p>🌷 엄마 항상 사랑하고 고마워요 🌷</p>
+<div id="result"></div>
 
 <script>
 function sendMessage() {
-    const message = document.getElementById("message").value;
+    const message =
+        document.getElementById("message").value;
 
     if (message.trim() === "") {
-        alert("엄마에게 편지를 먼저 적어주세요! 💗");
+        alert("메시지를 입력해주세요!");
         return;
     }
 
     const result = document.getElementById("result");
 
     result.textContent =
-        "💌 사랑하는 엄마에게 💌\n\n" +
+        "사랑하는 엄마에게 ❤️\n\n" +
         message +
-        "\n\n💕 엄마 사랑해요! 💕";
+        "\n\n엄마 생일 축하해요!";
 
     result.style.display = "block";
 }
@@ -340,4 +293,5 @@ function sendMessage() {
 
 </body>
 </html>
- 
+
+   
