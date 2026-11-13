@@ -210,86 +210,129 @@ footer { text-align:center; font-size:13px; padding:20px; }
     </article>
 
     
-    
+   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>엄마 생일 축하 카드</title>
+
 <style>
 body {
-    text-align: center;
-    background: #fff0f5;
+    background-color: #fff0f5;
     font-family: sans-serif;
+    text-align: center;
+    padding: 30px 10px;
 }
 
-h2 {
+h1 {
     color: #ff69a4;
 }
 
-textarea {
-    width: 80%;
-    height: 120px;
-    border: 2px solid #ffb6c1;
-    border-radius: 15px;
-    padding: 15px;
-    font-size: 16px;
+p {
+    color: #d66b91;
+    font-size: 18px;
+}
+
+.card {
+    background: white;
+    max-width: 450px;
+    width: 90%;
+    margin: 30px auto;
+    padding: 25px 15px;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px #f5b6cb;
     box-sizing: border-box;
 }
 
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 2px solid #ffb6c1;
+    border-radius: 15px;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
 button {
-    background: #ff85a2;
+    background-color: #ff85a2;
     color: white;
     border: none;
-    padding: 12px 25px;
     border-radius: 25px;
-    font-size: 16px;
+    padding: 13px 25px;
+    font-size: 17px;
+    margin-top: 15px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff5c8a;
 }
 
 #result {
     display: none;
-    background: white;
-    color: #e75480;
-    margin: 25px auto;
-    padding: 25px;
-    width: 75%;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px #f3b6c8;
-    white-space: pre-wrap;
+    background-color: #fff0f5;
+    color: #d94f82;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 18px;
+    font-size: 17px;
     line-height: 1.8;
+    text-align: left;
+
+    writing-mode: horizontal-tb;
+    white-space: pre-wrap;
+    word-break: normal;
+    overflow-wrap: break-word;
     box-sizing: border-box;
+    width: 100%;
 }
 </style>
 </head>
 
 <body>
 
-<h2>💗 엄마에게 보내는 편지 💗</h2>
+<h1>🎂 엄마 생일 축하해요! 🎂</h1>
 
-<textarea id="message"
-placeholder="엄마에게 사랑의 메시지를 적어주세요💕"></textarea>
+<p>💗 세상에서 가장 사랑하는 엄마에게 💗</p>
 
-<br><br>
+<div class="card">
 
-<button onclick="sendMessage()">
-💌 메시지 남기기
-</button>
+    <h2>💌 엄마에게 편지 쓰기</h2>
 
-<div id="result"></div>
+    <textarea id="message"
+    placeholder="엄마에게 하고 싶은 말을 적어주세요💕"></textarea>
+
+    <br>
+
+    <button onclick="sendMessage()">
+        💗 메시지 남기기 💗
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<p>🌷 엄마 항상 사랑하고 고마워요 🌷</p>
 
 <script>
 function sendMessage() {
-    let message = document.getElementById("message").value;
+    const message = document.getElementById("message").value;
 
     if (message.trim() === "") {
-        alert("메시지를 적어주세요!");
+        alert("엄마에게 편지를 먼저 적어주세요! 💗");
         return;
     }
 
-    let result = document.getElementById("result");
+    const result = document.getElementById("result");
 
-    result.innerText = "💗 사랑하는 엄마에게 💗\n\n"
-        + message + "\n\n🌷 사랑해요 🌷";
+    result.textContent =
+        "💌 사랑하는 엄마에게 💌\n\n" +
+        message +
+        "\n\n💕 엄마 사랑해요! 💕";
 
     result.style.display = "block";
 }
@@ -297,4 +340,4 @@ function sendMessage() {
 
 </body>
 </html>
-
+ 
