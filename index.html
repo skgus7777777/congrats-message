@@ -217,45 +217,10 @@ footer { text-align:center; font-size:13px; padding:20px; }
   </p>
 </section> 
 
-<section class="panel">
-  <h2>엄마에게 편지 쓰기 · 留下給媽媽的祝福</h2>
-  <form id="form">
-    <div class="field">
-      <label for="nickname">닉네임 · 暱稱（익명 가능／可匿名）</label>
-      <input id="nickname" type="text" maxlength="50"
-        placeholder="사랑하는 딸 · 愛媽媽的女兒">
-    </div>
 
-    <div class="field">
-      <label for="message">축하 메시지 · 生日祝福</label>
-      <textarea id="message" maxlength="1000" required
-        placeholder="엄마, 생일 진심으로 축하해요! 늘 건강하고 행복하세요. ♡&#10;媽媽，祝您生日快樂！希望您每天都健康、幸福。♡"></textarea>
-    </div>
-    <button id="submit" type="submit">
-      축하 메시지 남기기 ♡ · 送出祝福
-    </button>
-    <p id="status" aria-live="polite"></p>
-  </form>
-</section>
-
-<section class="panel">
-  <h2>사랑이 모이는 곳 · 愛的留言牆</h2>
-  <div id="messages" class="messages">
-    <div class="empty">留言載入中… · 메시지를 불러오는 중…</div>
-  </div>
-</section>
-
-<footer>
-  Made with love for Mom ♡<br>
-  엄마, 늘 사랑하고 감사해요. · 媽媽，我們永遠愛您。
-</footer>
-</main>
-
-<script>
-// Supabase 대시보드에서 복사한 값으로 교체하세요.
+// Supabase 설정
 const SUPABASE_URL = "YOUR_SUPABASE_URL";
 const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
-const BUCKET = "birthday-photos";
 
 const configured =
   SUPABASE_URL.startsWith("https://") &&
@@ -263,18 +228,16 @@ const configured =
   SUPABASE_KEY &&
   !SUPABASE_KEY.includes("YOUR_SUPABASE");
 
-const db = configured
+const db = configured && window.supabase
   ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
   : null;
 
 const form = document.getElementById("form");
-const photoInput = document.getElementById("photo");
-const preview = document.getElementById("preview");
 const statusBox = document.getElementById("status");
 const messagesBox = document.getElementById("messages");
 const submitButton = document.getElementById("submit");
-let selectedPhoto = null;
 
+// 메시지 카드 생성
 function textElement(tag, className, text) {
   const el = document.createElement(tag);
   el.className = className;
@@ -282,61 +245,39 @@ function textElement(tag, className, text) {
   return el;
 }
 
-// 사진 선택 및 미리보기
-photoInput.addEventListener("change", () => {
-  selectedPhoto = photoInput.files[0] || null;
-
-  if (!selectedPhoto) {
-    preview.style.display = "none";
-    preview.removeAttribute("src");
-    return;
-  }
-
-  if (!selectedPhoto.type.startsWith("image/") ||
-      selectedPhoto.size > 5 * 1024 * 1024) {
-    alert("이미지 파일을 5MB 이하로 선택해 주세요. · 請選擇小於 5MB 的圖片。");
-    photoInput.value = "";
-    selectedPhoto = null;
-    preview.style.display = "none";
-    return;
-  }
-
-  preview.src = URL.createObjectURL(selectedPhoto);
-  preview.style.display = "block";
-});
-
-// 저장된 메시지 표시
+// 메시지 불러오기
 async function loadMessages() {
   if (!db) {
-    messagesBox.replaceChildren(textElement(
-      "div", "empty",
-      "Supabase 설정이 필요해요. · 請先完成 Supabase 設定。"
-    ));
+    messagesBox.replaceChildren(
+      textElement("div", "empty", "Supabase 설정을 확인해 주세요. · 請檢查 Supabase 設定。")
+    );
     return;
   }
 
   const { data, error } = await db
     .from("birthday_messages")
-    .select("id,nickname,message,photo_url,created_at")
+    .select("id,nickname,message,created_at")
     .order("created_at", { ascending: false })
     .limit(100);
 
   if (error) {
-    console.error(error);
-    messagesBox.replaceChildren(textElement(
-      "div", "empty",
-      "留言載入失敗，請檢查設定。 · 메시지를 불러오지 못했어요."
-    ));
+    console.error("불러오기 오류:", error);
+    messagesBox.replaceChildren(
+      textElement("div", "empty", "메시지를 불러오지 못했어요. · 留言載入失敗。")
+    );
     return;
   }
 
   messagesBox.replaceChildren();
 
-  if (!data.length) {
-    messagesBox.appendChild(textElement(
-      "div", "empty",
-      "첫 번째 축하 메시지를 남겨 주세요 ♡ · 歡迎留下第一則祝福 ♡"
-    ));
+  if (!data || data.length === 0) {
+    messagesBox.appendChild(
+      textElement(
+        "div",
+        "empty",
+        "첫 번째 축하 메시지를 남겨 주세요 ♡ · 歡迎留下第一則祝福 ♡"
+      )
+    );
     return;
   }
 
@@ -344,53 +285,82 @@ async function loadMessages() {
     const card = document.createElement("article");
     card.className = "message-card";
 
-    card.appendChild(textElement("div", "", "♡ " + item.nickname));
-    card.appendChild(textElement("p", "", item.message));
+    card.appendChild(
+      textElement("div", "", "♡ " + (item.nickname || "익명 · 匿名"))
+    );
 
-    if (item.photo_url) {
-      const img = document.createElement("img");
-      img.src = item.photo_url;
-      img.alt = "가족사진 · 家庭照片";
-      img.loading = "lazy";
-      card.appendChild(img);
-    }
+    card.appendChild(
+      textElement("p", "", item.message)
+    );
 
     if (item.created_at) {
-      card.appendChild(textElement(
-        "div", "date",
-        new Date(item.created_at).toLocaleString("zh-TW")
-      ));
+      card.appendChild(
+        textElement(
+          "div",
+          "date",
+          new Date(item.created_at).toLocaleString("zh-TW")
+        )
+      );
     }
 
     messagesBox.appendChild(card);
   });
 }
 
-// 메시지 및 선택 사진 저장
+// 축하 메시지 등록
 form.addEventListener("submit", async event => {
   event.preventDefault();
 
   if (!db) {
     statusBox.textContent =
-      "Supabase URL과 Publishable key를 먼저 입력해 주세요.";
+      "Supabase URL과 Publishable Key를 확인해 주세요.";
     return;
   }
 
   const nickname =
-    document.getElementById("nickname").value.trim() || "익명 · 匿名";
-  const message = document.getElementById("message").value.trim();
+    document.getElementById("nickname").value.trim() ||
+    "익명 · 匿名";
 
-  if (!message) return;
+  const message =
+    document.getElementById("message").value.trim();
+
+  if (!message) {
+    statusBox.textContent = "축하 메시지를 입력해 주세요. ♡";
+    return;
+  }
 
   submitButton.disabled = true;
   statusBox.textContent = "등록 중… · 送出中…";
 
   try {
-    let photoUrl = null;
+    const { error } = await db
+      .from("birthday_messages")
+      .insert([
+        {
+          nickname: nickname,
+          message: message
+        }
+      ]);
 
-    if (selectedPhoto) {
-      const ext = selectedPhoto.name.split(".").pop()
-        .toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";
-      const path = crypto.randomUUID() + "." + ext;
+    if (error) throw error;
 
-      const
+    statusBox.textContent =
+      "사랑의 메시지가 등록되었어요! ♡ · 祝福已成功送出！";
+
+    document.getElementById("nickname").value = "";
+    document.getElementById("message").value = "";
+
+    await loadMessages();
+
+  } catch (error) {
+    console.error("등록 오류:", error);
+
+    statusBox.textContent =
+      "등록에 실패했어요. Supabase 설정과 권한을 확인해 주세요.";
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+// 페이지가 열리면 자동으로 메시지 불러오기
+loadMessages();
