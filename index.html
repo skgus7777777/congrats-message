@@ -211,338 +211,64 @@ footer { text-align:center; font-size:13px; padding:20px; }
 
 
 
+
     
+<section class="family-letters">
+
+  <h2>엄마에게 보내는 사랑의 편지 ♡</h2>
+  <p class="letters-subtitle">給媽媽的愛的信</p>
+
+  <div class="letter-divider"></div>
+
+  <div class="letter-item">
+    <h3>첫째 딸</h3>
+    <p class="letter-greeting">사랑하는 엄마에게</p>
+    <p class="letter-message">
+      사랑하는 엄마, 생일 축하해요 ♡
+      항상 건강하고 행복했으면 좋겠어요.
+      세상에서 가장 사랑해요.
+    </p>
+  </div>
+
+  <div class="letter-item">
+    <h3>동생</h3>
+    <p class="letter-greeting">엄마에게 전하는 편지</p>
+    <p class="letter-message">
+      엄마 생일 축하해!
+      언제나 우리 곁에 있어 줘서 고마워.
+      앞으로 좋은 일만 가득하길 바라요.
+    </p>
+  </div>
+
+  <div class="letter-item">
+    <h3>남편</h3>
+    <p class="letter-greeting">장모님께</p>
+    <p class="letter-message">
+      장모님 생신 축하드립니다.
+      항상 건강하시고 행복한 날들 보내세요.
+      늘 감사하고 사랑합니다.
+    </p>
+  </div>
+
+  <div class="letter-item">
+    <h3>가족</h3>
+    <p class="letter-greeting">우리 가족의 마음을 담아</p>
+    <p class="letter-message">
+      엄마, 항상 사랑해요.
+      함께하는 시간이 언제나 소중해요.
+      오래오래 행복하게 함께해요 ♡
+    </p>
+  </div>
+
+  <div class="letter-item">
+    <h3>다섯 번째 편지</h3>
+    <p class="letter-greeting">사랑하는 엄마에게</p>
+    <p class="letter-message">
+      이곳에 다섯 번째 편지 내용을 넣어주세요.
+    </p>
+  </div>
+
+</section>
 
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>사랑하는 엄마에게 ♡</title>
 
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 18px 12px;
-  background: #f5eee5;
-  color: #655348;
-  font-family: Georgia, "Noto Serif KR", serif;
-}
-
-.container {
-  max-width: 650px;
-  margin: auto;
-  padding: 22px 18px;
-  background: #fffdf9;
-  border: 1px solid #e9dbcb;
-  border-radius: 14px;
-  box-shadow: 0 4px 15px #00000008;
-}
-
-header {
-  text-align: center;
-  padding: 18px 5px 22px;
-}
-
-header .small {
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: #ad8c77;
-}
-
-header h1 {
-  font-size: 25px;
-  line-height: 1.5;
-  font-weight: normal;
-  margin: 13px 0 5px;
-}
-
-header p {
-  font-size: 15px;
-  margin: 5px 0;
-  color: #a18470;
-}
-
-.divider {
-  width: 55px;
-  height: 1px;
-  background: #d6bda9;
-  margin: 15px auto;
-}
-
-section {
-  margin: 15px 0 25px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 19px;
-  font-weight: normal;
-  margin-bottom: 7px;
-}
-
-.subtitle {
-  font-size: 12px;
-  line-height: 1.7;
-  color: #a18b7b;
-  margin-bottom: 15px;
-}
-
-.album {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 9px;
-}
-
-.photo-card {
-  background: white;
-  padding: 5px;
-  border: 1px solid #eadfd3;
-  box-shadow: 0 2px 6px #0000000c;
-}
-
-.photo-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1.15;
-  object-fit: cover;
-  display: block;
-}
-
-.photo-card p {
-  font-size: 11px;
-  margin: 7px 0 3px;
-  color: #907665;
-}
-
-.message-section {
-  max-width: 500px;
-  margin: 25px auto 15px;
-  padding: 18px 15px;
-  background: #faf4ed;
-  border: 1px solid #eee2d6;
-  border-radius: 12px;
-}
-
-.message-section input,
-.message-section textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 7px 0;
-  border: 1px solid #e5d8ca;
-  border-radius: 7px;
-  background: #fffdf9;
-  font-family: inherit;
-  font-size: 14px;
-}
-
-.message-section textarea {
-  height: 75px;
-  resize: vertical;
-}
-
-.message-section button {
-  padding: 10px 23px;
-  border: none;
-  border-radius: 20px;
-  background: #ae8974;
-  color: white;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-#messageList {
-  margin-top: 15px;
-  text-align: left;
-}
-
-.message-item {
-  padding: 10px;
-  margin-top: 8px;
-  background: white;
-  border-radius: 8px;
-  font-size: 13px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-.message-item strong {
-  color: #a47e68;
-}
-
-footer {
-  text-align: center;
-  padding: 18px 5px 5px;
-  color: #a58b78;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-@media (max-width: 380px) {
-  .container {
-    padding: 15px 11px;
-  }
-
-  header h1 {
-    font-size: 21px;
-  }
-
-  h2 {
-    font-size: 17px;
-  }
-
-  .album {
-    gap: 6px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-  <header>
-    <div class="small">HAPPY BIRTHDAY ♡</div>
-
-    <h1>
-      세상에서 가장 사랑하는 엄마에게
-    </h1>
-
-    <p>給我們最愛的媽媽 ♡</p>
-
-    <div class="divider"></div>
-
-    <p>엄마의 생일을 진심으로 축하해요</p>
-    <p>祝媽媽生日快樂，永遠幸福健康</p>
-  </header>
-
-  <section>
-    <h2>우리의 추억 앨범</h2>
-
-    <div class="subtitle">
-      가족과 함께한 소중한 순간들<br>
-      和家人一起度過的美好時光
-    </div>
-
-    <div class="album">
-
-      <article class="photo-card">
-        <img src="photos/family-01.jpg" alt="가족사진 1">
-        <p>소중한 추억 ♡</p>
-      </article>
-
-      <article class="photo-card">
-        <img src="photos/family-02.jpg" alt="가족사진 2">
-        <p>행복한 순간 ♡</p>
-      </article>
-
-      <article class="photo-card">
-        <img src="photos/family-03.jpg" alt="가족사진 3">
-        <p>사랑하는 가족 ♡</p>
-      </article>
-
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <section class="message-section">
-
-    <h2>엄마에게 메시지 남기기 ♡</h2>
-
-    <div class="subtitle">
-      사랑하는 엄마에게 전하고 싶은 말을 남겨주세요.<br>
-      留下想對媽媽說的話吧！
-    </div>
-
-    <form id="messageForm">
-
-      <input
-        type="text"
-        id="name"
-        placeholder="이름 / 留言者"
-        required
-      >
-
-      <textarea
-        id="message"
-        placeholder="엄마에게 전하고 싶은 메시지 ♡"
-        required
-      ></textarea>
-
-      <button type="submit">
-        메시지 남기기 ♡
-      </button>
-
-    </form>
-
-    <div id="messageList"></div>
-
-  </section>
-
-  <footer>
-    세상에서 가장 소중한 우리 엄마 ♡<br>
-    永遠愛妳，媽媽 ♡
-  </footer>
-
-</div>
-
-<script>
-// 임시 메시지 저장 기능
-// 현재 브라우저에만 저장됩니다.
-
-const form = document.getElementById("messageForm");
-const list = document.getElementById("messageList");
-
-let messages = JSON.parse(
-  localStorage.getItem("momMessages") || "[]"
-);
-
-function showMessages() {
-  list.innerHTML = "";
-
-  messages.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "message-item";
-
-    const name = document.createElement("strong");
-    name.textContent = item.name + " ♡";
-
-    const content = document.createElement("div");
-    content.textContent = item.message;
-
-    div.appendChild(name);
-    div.appendChild(content);
-    list.appendChild(div);
-  });
-}
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  if (!name || !message) return;
-
-  messages.unshift({ name, message });
-
-  localStorage.setItem(
-    "momMessages",
-    JSON.stringify(messages)
-  );
-
-  form.reset();
-  showMessages();
-});
-
-showMessages();
-</script>
-
-</body>
-</html>
