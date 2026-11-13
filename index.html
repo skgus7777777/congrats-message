@@ -212,22 +212,36 @@ footer { text-align:center; font-size:13px; padding:20px; }
 
 
 <style>
-/* 편지 전체 영역 */
+  /* 편지 영역 중앙 정렬 및 전체 너비 확보 */
 .family-letters {
-  width: calc(100% - 32px);
-  max-width: 900px;
-  box-sizing: border-box;
+  grid-column: 1 / -1 !important;
+  justify-self: center !important;
+
+  display: block !important;
+  width: calc(100% - 28px) !important;
+  max-width: 900px !important;
+  box-sizing: border-box !important;
+
   margin: 40px auto !important;
   padding: 35px 24px;
+
   background: #fffaf6;
   border-radius: 24px;
   color: #594941;
   font-family: inherit;
   overflow: hidden;
-  position: relative;
-  left: auto;
-  right: auto;
 }
+
+/* 편지 카드 중앙 정렬 */
+.family-letters .letter-item {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 700px !important;
+  margin: 0 auto 24px !important;
+  box-sizing: border-box;
+}
+
 
 /* 제목 */
 .family-letters h2 {
