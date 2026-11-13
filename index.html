@@ -217,153 +217,28 @@ footer { text-align:center; font-size:13px; padding:20px; }
   </p>
 </section> 
 
-  <script>
+<h2>💌 엄마에게 메시지 남기기</h2>
 
-// Supabase 설정
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
+<textarea id="message" 
+placeholder="엄마에게 전하고 싶은 말을 적어주세요!">
+</textarea>
 
-const configured =
-  SUPABASE_URL.startsWith("https://") &&
-  !SUPABASE_URL.includes("YOUR_SUPABASE") &&
-  SUPABASE_KEY &&
-  !SUPABASE_KEY.includes("YOUR_SUPABASE");
+<br><br>
 
-const db = configured && window.supabase
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-  : null;
+<button onclick="sendMessage()">메시지 남기기 ❤️</button>
 
-const form = document.getElementById("form");
-const statusBox = document.getElementById("status");
-const messagesBox = document.getElementById("messages");
-const submitButton = document.getElementById("submit");
+<p id="result"></p>
 
-// 메시지 카드 생성
-function textElement(tag, className, text) {
-  const el = document.createElement(tag);
-  el.className = className;
-  el.textContent = text;
-  return el;
-}
+<script>
+function sendMessage() {
+    let message = document.getElementById("message").value;
 
-// 메시지 불러오기
-async function loadMessages() {
-  if (!db) {
-    messagesBox.replaceChildren(
-      textElement("div", "empty", "Supabase 설정을 확인해 주세요. · 請檢查 Supabase 設定。")
-    );
-    return;
-  }
-
-  const { data, error } = await db
-    .from("birthday_messages")
-    .select("id,nickname,message,created_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  if (error) {
-    console.error("불러오기 오류:", error);
-    messagesBox.replaceChildren(
-      textElement("div", "empty", "메시지를 불러오지 못했어요. · 留言載入失敗。")
-    );
-    return;
-  }
-
-  messagesBox.replaceChildren();
-
-  if (!data || data.length === 0) {
-    messagesBox.appendChild(
-      textElement(
-        "div",
-        "empty",
-        "첫 번째 축하 메시지를 남겨 주세요 ♡ · 歡迎留下第一則祝福 ♡"
-      )
-    );
-    return;
-  }
-
-  data.forEach(item => {
-    const card = document.createElement("article");
-    card.className = "message-card";
-
-    card.appendChild(
-      textElement("div", "", "♡ " + (item.nickname || "익명 · 匿名"))
-    );
-
-    card.appendChild(
-      textElement("p", "", item.message)
-    );
-
-    if (item.created_at) {
-      card.appendChild(
-        textElement(
-          "div",
-          "date",
-          new Date(item.created_at).toLocaleString("zh-TW")
-        )
-      );
+    if (message.trim() === "") {
+        alert("메시지를 입력해주세요!");
+        return;
     }
 
-    messagesBox.appendChild(card);
-  });
+    document.getElementById("result").innerHTML =
+        "💗 엄마에게 보내는 메시지 💗<br>" + message;
 }
-
-// 축하 메시지 등록
-form.addEventListener("submit", async event => {
-  event.preventDefault();
-
-  if (!db) {
-    statusBox.textContent =
-      "Supabase URL과 Publishable Key를 확인해 주세요.";
-    return;
-  }
-
-  const nickname =
-    document.getElementById("nickname").value.trim() ||
-    "익명 · 匿名";
-
-  const message =
-    document.getElementById("message").value.trim();
-
-  if (!message) {
-    statusBox.textContent = "축하 메시지를 입력해 주세요. ♡";
-    return;
-  }
-
-  submitButton.disabled = true;
-  statusBox.textContent = "등록 중… · 送出中…";
-
-  try {
-    const { error } = await db
-      .from("birthday_messages")
-      .insert([
-        {
-          nickname: nickname,
-          message: message
-        }
-      ]);
-
-    if (error) throw error;
-
-    statusBox.textContent =
-      "사랑의 메시지가 등록되었어요! ♡ · 祝福已成功送出！";
-
-    document.getElementById("nickname").value = "";
-    document.getElementById("message").value = "";
-
-    await loadMessages();
-
-  } catch (error) {
-    console.error("등록 오류:", error);
-
-    statusBox.textContent =
-      "등록에 실패했어요. Supabase 설정과 권한을 확인해 주세요.";
-  } finally {
-    submitButton.disabled = false;
-  }
-});
-
-// 페이지가 열리면 자동으로 메시지 불러오기
-loadMessages();
-
- 
+</script>
