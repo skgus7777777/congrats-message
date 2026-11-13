@@ -212,86 +212,28 @@ footer { text-align:center; font-size:13px; padding:20px; }
 
 
     
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>엄마 생일 카드</title>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
+<section class="message-section">
+  <h2>엄마에게 메시지 남기기 ♡</h2>
+  <p>사랑하는 엄마에게 전하고 싶은 말을 남겨주세요.</p>
+  <p>留下想對媽媽說的話吧！</p>
 
-textarea {
-    width: 300px;
-    height: 120px;
-    padding: 10px;
-    font-size: 16px;
-}
+  <form id="messageForm">
+    <input
+      type="text"
+      id="name"
+      placeholder="이름 / 留言者"
+      required
+    >
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    <textarea
+      id="message"
+      placeholder="엄마에게 전하고 싶은 메시지 ♡"
+      required
+    ></textarea>
 
-#result {
-    display: none;
-    margin: 25px auto;
-    padding: 20px;
-    max-width: 450px;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    text-align: left;
-    font-size: 16px;
-    line-height: 1.8;
-    writing-mode: horizontal-tb;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    box-sizing: border-box;
-}
-</style>
-</head>
+    <button type="submit">메시지 남기기 ♡</button>
+  </form>
 
-<body>
-
-<h2>💌 엄마에게 메시지 남기기</h2>
-
-<textarea id="message"
-placeholder="엄마에게 하고 싶은 말을 적어주세요."></textarea>
-
-<br><br>
-
-<button onclick="sendMessage()">
-메시지 남기기
-</button>
-
-<div id="result"></div>
-
-<script>
-function sendMessage() {
-    const message =
-        document.getElementById("message").value;
-
-    if (message.trim() === "") {
-        alert("메시지를 입력해주세요!");
-        return;
-    }
-
-    const result = document.getElementById("result");
-
-    result.textContent =
-        "사랑하는 엄마에게 ❤️\n\n" +
-        message +
-        "\n\n엄마 생일 축하해요!";
-
-    result.style.display = "block";
-}
-</script>
-
-</body>
-</html>
-
-   
+  <div id="messageList"></div>
+</section>
